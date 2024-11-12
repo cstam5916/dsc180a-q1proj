@@ -24,7 +24,7 @@ class SMPNN(torch.nn.Module):
         self.linear_end = nn.Linear(hidden_channels, out_channels)
 
     def forward(self, data):
-        x, edge_index = data.x, data.edge_index
+        x, edge_index = data.x.float(), data.edge_index
         x = F.silu(self.linear_start(x))
         for i in range(self.num_layers):
             x = self.forward_gcn(x, edge_index, i)
